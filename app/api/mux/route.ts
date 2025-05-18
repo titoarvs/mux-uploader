@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 
-// Use your environment variable
-const MUX_SIGNING_SECRET = process.env.MUX_SIGNING_SECRET;
-
 // Example DB update (you'll replace this with your actual DB logic)
 async function updateVideoStatus(
   assetId: string,
@@ -21,14 +18,14 @@ function verifyMuxSignature(bodyBuffer: string, headers: Headers): boolean {
   const timestamp = tsPart.split("=")[1];
   const signature = sigPart.split("=")[1];
 
-  if (!MUX_SIGNING_SECRET) {
+  if (!process.env.MUX_SIGNING_SECRET) {
     console.error("MUX_SIGNING_SECRET is not defined");
     return false;
   }
 
   const payload = `${timestamp}.${bodyBuffer}`;
   const expectedSignature = crypto
-    .createHmac("sha256", MUX_SIGNING_SECRET)
+    .createHmac("sha256", process.env.MUX_SIGNING_SECRET)
     .update(payload)
     .digest("hex");
 
