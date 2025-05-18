@@ -50,6 +50,9 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   const { type, data } = event;
+
+  console.log("Received Mux event:", data);
+
   const assetId = data.id;
 
   let status;

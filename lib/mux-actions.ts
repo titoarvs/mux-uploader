@@ -28,6 +28,10 @@ export async function createUploadUrl(title: string, description: string) {
     });
     console.log("🚀 ~ createUploadUrl ~ upload:", upload);
 
+    // Get the asset id if available
+    const assetId = upload.asset_id;
+    console.log("🚀 ~ createUploadUrl ~ assetId:", assetId);
+
     return {
       id: upload.id,
       url: upload.url,
